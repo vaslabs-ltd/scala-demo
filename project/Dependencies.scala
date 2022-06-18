@@ -8,11 +8,11 @@ object Dependencies {
       val core = "3.1.1"
     }
     object tapir {
-      val core = "0.12.23"
+      val core = "1.0.0"
     }
 
     object circe {
-      val core = "0.13.0"
+      val core = "0.14.1"
     }
 
   }
@@ -35,8 +35,7 @@ object Dependencies {
 
       val docs = Seq(
         "com.softwaremill.sttp.tapir" %% "tapir-openapi-docs",
-        "com.softwaremill.sttp.tapir" %% "tapir-openapi-circe-yaml",
-        "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-akka-http"
+        "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle"
       ).map(_ % Versions.tapir.core)
     }
   }

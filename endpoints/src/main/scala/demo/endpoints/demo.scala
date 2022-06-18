@@ -1,8 +1,9 @@
 package demo.endpoints
 
 import sttp.tapir._
-import io.circe.generic.auto._
+import sttp.tapir.generic.auto._
 import sttp.tapir.json.circe._
+import io.circe.generic.auto._
 import _root_.demo.model._
 import _root_.demo.json.circe._
 

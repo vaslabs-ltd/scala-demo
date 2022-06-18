@@ -13,7 +13,7 @@ object Bootstrap extends App {
   implicit val materializer = Materializer(system)
   implicit val executionContext = system.dispatcher
 
-  val bindingFuture = Http().bindAndHandle(routes.documentationRoute ~ routes.additionRoute, "0.0.0.0", 8080)
+  val bindingFuture = Http().bindAndHandle(Documentation.swaggerRoute ~ routes.additionRoute, "0.0.0.0", 8080)
 
   println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
   StdIn.readLine() // let it run until user presses return

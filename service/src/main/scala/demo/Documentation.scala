@@ -2,12 +2,16 @@ package demo
 
 import sttp.tapir.docs.openapi._
 import demo.endpoints.demo._
-import sttp.tapir.openapi.circe.yaml._
+import scala.concurrent.Future
+import sttp.tapir.swagger.bundle.SwaggerInterpreter
+import sttp.tapir.server.akkahttp.AkkaHttpServerInterpreter
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Documentation {
 
-  val openApi = List(http, addition).toOpenAPI("Demo addition", "1.0")
+  val swaggerEndpoints = SwaggerInterpreter().fromEndpoints[Future](List(http, addition), "Demo addition", "1.0")
 
-  val openApiYaml = openApi.toYaml
+  //http://localhost:8080/docs/
+  val swaggerRoute = AkkaHttpServerInterpreter().toRoute(swaggerEndpoints)
 
 }

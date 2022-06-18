@@ -6,23 +6,23 @@ import demo.endpoints.demo._
 
 import scala.concurrent.Future
 import akka.http.scaladsl.server.Directives._
-import sttp.tapir.swagger.akkahttp.SwaggerAkka
 import demo.model._
+import sttp.tapir.server.akkahttp.AkkaHttpServerInterpreter
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object routes {
 
 
-  val additionRoute = http.toRoute {
-    case (a,b) => Future.successful(Right(AdditionOp.op(a, b)))
-  } ~ addition.toRoute {
-    case Addition(a,b) => Future.successful(Right(Sum(AdditionOp.op(a, b))))
-  } ~ path("health") {
+
+  val additionRoute = AkkaHttpServerInterpreter().toRoute(http.serverLogicSuccess[Future] {
+    case (a,b) => Future.successful(AdditionOp.op(a, b))
+  }) ~ AkkaHttpServerInterpreter().toRoute(addition.serverLogicSuccess[Future] {
+    case Addition(a,b) => Future.successful(Sum(AdditionOp.op(a, b)))
+  }) ~ path("health") {
     get {
       complete(StatusCodes.OK)
     }
   }
-
-  val documentationRoute = new SwaggerAkka(Documentation.openApiYaml).routes
 
 
 }

@@ -24,3 +24,10 @@ node_modules
 __pycache__
 *.pyo
 *.pyc
+
+.bloop/
+.metals/
+.vscode/
+
+project/metals.sbt 
+project/project/
